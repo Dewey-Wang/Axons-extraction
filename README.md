@@ -38,18 +38,47 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 
 ### **1. Data Acquisition**
 - **Microscopy Imaging**: Captured confocal microscopy images of axons using **SP8 Confocal Microscopy (Leica)**.
-- **FRET Calcium Sensors**: Used fluorescent indicators for axonal calcium imaging.
 
 ### **2. Image Preprocessing**
 - **Denoising Algorithms**:
-  - **BM3D**: Advanced block-matching and collaborative filtering for 2D/3D images.
-  - **BM4D**: Specialized for volumetric data denoising.
-  - **Bilateral Filtering**: Reduced Gaussian noise while preserving edges.
-- **Connected Component Labeling (CCL)**: Automated labeling of connected regions for segmentation.
+  1. **Initial Denoising**:
+     - **BM3D**: Applied advanced block-matching and collaborative filtering to reduce noise in 2D/3D images.
+  2. **Algorithm Choice Based on Image Characteristics**:
+     - For **axon-intensive images**:
+       - Used **Bilateral Filtering** to reduce Gaussian noise while preserving edge features, as **BM4D** tends to misinterpret dense axonal signals as noise and removes them entirely.
+     - For **less axon-intensive images**:
+       - Applied **BM4D** for volumetric data denoising.
+  3. **Background Removal**:
+     - Applied **Top-Hat Filtering** to extract foreground features and remove uneven background illumination.
 
+- **Initial Segmentation**:
+  - Used `cle.greater_or_equal_constant` for custom thresholding to create binary images.
+  - Extracted edge features with Sobel filters.
+  - Generated labeled regions with `skimage.measure.label`.
+
+     
 ### **3. Ground Truth Generation**
-- **Napari**: Used for manual correction of segmentations generated from thresholding and CCL.
-- Created ground truth images for training by validating and refining initial automated segmentations.
+- **Interactive Ground Truth Creation**:
+  - Developed a **custom Python tool** using `napari` and standard Python libraries like `os`, `tifffile`, and `tkinter` to streamline the creation of ground truth labeled images.
+  - The tool provides a user-friendly interface for loading, viewing, annotating, and saving labeled images.
+- **Key Features**:
+  1. **Shortcut-Driven Workflow**:
+     - `c`: Confirm and segment a specific region by applying a label mask.
+     - `s`: Save the current mask and move to the next image.
+     - `n`: Skip the current image without saving.
+     - `r`: Return to the previous image for corrections.
+     - `v`: Toggle between different viewing perspectives (e.g., y-z plane).
+  2. **Normalization**:
+     - Automatic normalization of image datasets to enhance contrast and ensure consistent brightness across slices.
+  3. **Dynamic Label Masking**:
+     - Enables segmentation of specific regions based on a selected label ID and visualizes sharpened or segmented results in real-time.
+  4. **File Management**:
+     - Integrated functions for loading existing datasets and saving progress, allowing users to resume their work seamlessly.
+  5. **Interactive Navigation**:
+     - Allows users to navigate large datasets and annotate images efficiently.
+
+- This tool significantly enhances the efficiency and accuracy of ground truth generation, making it easier to create high-quality labeled images for training deep learning models.
+
 
 ### **4. Training Data Preparation**
 - Developed algorithms to convert segmentation-labeled images into semantic labels suitable for deep learning.
