@@ -1,34 +1,74 @@
-# README for Master’s Thesis
+# **Automated Identification of Mouse Spinal Cord Axons Using Deep Learning**
 
-## Title
-**Establishment of Neural Network Pipeline for Automated Identification of Mouse Spinal Cord Axons**
-
-## Author
-**Ding Yang Wang**  
-
-## Institution
-**Ludwig-Maximilians-Universität München**  
-**Department of Biology, Molecular and Cellular Biology**
-
-## Supervisor
-**Prof. Dr. med. Martin Kerschensteiner**  
-Email: [Martin.Kerschensteiner@med.uni-muenchen.de](mailto:Martin.Kerschensteiner@med.uni-muenchen.de)
+Welcome to the repository for my Master’s thesis: **Establishment of Neural Network Pipeline for Automated Identification of Mouse Spinal Cord Axons**. This project introduces a **deep learning pipeline** that automates the segmentation and analysis of axons in microscopy images, focusing on axonal calcium dynamics in multiple sclerosis (MS) research.
 
 ---
 
-## Abstract
-This thesis focuses on the development of a neural network pipeline designed to automate the identification of axons in mouse spinal cord images. The proposed solution integrates deep learning techniques with advanced image processing, enabling efficient and accurate identification. This work has potential applications in neurobiology, specifically for improving the understanding of spinal cord injuries and axonal behaviors.
+## **Abstract**
 
-## Repository Overview
-This repository contains all code and data required to reproduce the results presented in the thesis. Below is an overview of the structure:
+Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. Our findings indicate a correlation between axonal degeneration and calcium levels, with elevated calcium observed in degenerating axons. This suggests that the intra-axonal calcium concentration may serve as an important checkpoint towards axonal degeneration. Our project tackles the inefficiencies in manual analysis of axonal calcium levels by implementing a robust **3D-UNet neural network** for volumetric segmentation and a semi-automatic image-processing pipeline to prepare axon segmentation data.
 
-- `src/` - Core source code for the neural network pipeline.
-- `data/` - Sample datasets and preprocessed images.
-- `models/` - Pre-trained and fine-tuned models.
-- `notebooks/` - Jupyter notebooks for visualization and analysis.
-- `results/` - Generated outputs, including figures and performance metrics.
-- `docs/` - Documentation and supplementary materials.
-- `instruction.ipynb` - Step-by-step operation guide for setting up and running the pipeline.
+### Key Contributions:
+- A **semi-automatic pipeline** employing state-of-the-art denoising and segmentation techniques for efficient data preprocessing and ground truth generation (Steps 1–3 in **Workflow**).
+- **High-throughput segmentation** of fluorescently labeled axons using **deep learning** to automate segmentation after training (Steps 1–2 in **Workflow** + trained model).
+
+---
+
+## **Workflow**
+1. **Data Acquisition**:
+   - Microscopy images of axons from EAE-induced mice expressing FRET calcium sensors.
+2. **Preprocessing**:
+   - Image denoising using BM3D, BM4D, and bilateral filtering.
+3. **Segmentation - ground truth generation**:
+   - Semi-automatic segmentation using thresholding and CCL.
+   - Using napari to manual correct the segmentaion from thresholding and CC.-This step is to make ground truth image.
+4. **Training Data preparation**:
+   - create the algorithums to transfer the segmentation labeled image into semantic image. 
+5. **Data Augmentation**:
+   -  Utilized libraries such as \colorbox{lightgray}{\texttt{kimimaro}} and \colorbox{lightgray}{\texttt{torchio}} to expand dataset diversity.
+6. **Model Trainning**:
+   - Trainning 3D-Unet model and VGG16-backboned 3D-Unet model. 
+7. **Model Estimation**:
+   - Compared model predictions with ground truth annotations.
+   - Achieved classification accuracy: **Background (0.99)**, **Axons (0.85)**, and **Borders (0.65)**.
+
+---
+
+## **Techniques and Tools**
+
+### **1. Data Acquisition**
+- **Microscopy Imaging**: Captured confocal microscopy images of axons using **SP8 Confocal Microscopy (Leica)**.
+- **FRET Calcium Sensors**: Used fluorescent indicators for axonal calcium imaging.
+
+### **2. Image Preprocessing**
+- **Denoising Algorithms**:
+  - **BM3D**: Advanced block-matching and collaborative filtering for 2D/3D images.
+  - **BM4D**: Specialized for volumetric data denoising.
+  - **Bilateral Filtering**: Reduced Gaussian noise while preserving edges.
+- **Connected Component Labeling (CCL)**: Automated labeling of connected regions for segmentation.
+
+### **3. Ground Truth Generation**
+- **Napari**: Used for manual correction of segmentations generated from thresholding and CCL.
+- Created ground truth images for training by validating and refining initial automated segmentations.
+
+### **4. Training Data Preparation**
+- Developed algorithms to convert segmentation-labeled images into semantic labels suitable for deep learning.
+
+### **5. Data Augmentation**
+- **Kimimaro**: Enhanced data diversity by skeletonizing neuronal structures.
+- **TorchIO**: Applied spatial, intensity, and random augmentations for 3D medical imaging datasets.
+
+### **6. Model Training**
+- **3D-UNet**: Trained a 3D convolutional neural network for volumetric segmentation.
+- **VGG16-backboned 3D-UNet**: Incorporated VGG16 as a backbone for improved feature extraction and segmentation accuracy.
+
+### **7. Model Estimation**
+- Compared model predictions with ground truth annotations using evaluation metrics such as:
+  - **Precision**, **Recall**, and **F1 Score**.
+  - Achieved segmentation accuracy:
+    - **Background**: 0.99
+    - **Axons**: 0.85
+    - **Borders**: 0.65
 
 ---
 
@@ -114,3 +154,7 @@ For any questions or issues, please contact:
 **Ding Yang Wang**  
 Email: [deweywang2000@gmail.com](deweywang2000@gmail.com)
 
+---
+## Supervisor
+**Prof. Dr. med. Martin Kerschensteiner**  
+Email: [Martin.Kerschensteiner@med.uni-muenchen.de](mailto:Martin.Kerschensteiner@med.uni-muenchen.de)
