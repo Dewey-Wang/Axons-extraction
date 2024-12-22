@@ -34,20 +34,6 @@ A collection of Python scripts providing shared functionality for the pipeline:
 
 ---
 
-## **How to Use**
-
-### Importing Utilities
-To use a utility script from the `utils/` folder in your Jupyter Notebook:
-```python
-from utils.data_loader import load_data
-from utils.image_processing import denoise_image
-```
-
-### Running Notebooks
-Each subdirectory contains Jupyter Notebooks tailored for specific pipeline stages. Refer to the documentation in each notebook for detailed instructions.
-
----
-
 ## **Contact**
 
 For further questions or assistance, please contact:  
