@@ -1,128 +1,73 @@
-# **Automated Identification of Mouse Spinal Cord Axons Using Deep Learning**
+# **Environment Setup**
 
-Welcome to the repository for my Master’s thesis: **Establishment of Neural Network Pipeline for Automated Identification of Mouse Spinal Cord Axons**. This project introduces a **deep learning pipeline** that automates the segmentation and analysis of axons in microscopy images, focusing on axonal calcium dynamics in multiple sclerosis (MS) research.
-
----
-
-## **Abstract**
-
-Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. Our findings indicate a correlation between axonal degeneration and calcium levels, with elevated calcium observed in degenerating axons. This suggests that the intra-axonal calcium concentration may serve as an important checkpoint towards axonal degeneration. Our project tackles the inefficiencies in manual analysis of axonal calcium levels by implementing a robust **3D-UNet neural network** for volumetric segmentation and a semi-automatic image-processing pipeline to prepare axon segmentation data.
-
-### Key Contributions:
-- A **semi-automatic pipeline** employing state-of-the-art denoising and segmentation techniques for efficient data preprocessing and ground truth generation (Steps 1–3 in **Workflow**).
-- **High-throughput segmentation** of fluorescently labeled axons using **deep learning** to automate segmentation after training (Steps 1–2 in **Workflow** + trained model).
+This repository provides two environment files for setting up the necessary dependencies: `training_env.yml` for GPU-based model training and `preprocessing_env.yml` for preprocessing tasks. Please follow the instructions below to set up the environments using Anaconda.
 
 ---
 
-## **Workflow**
-1. **Preprocessing**:
-   - Image denoising using BM3D, BM4D, and bilateral filtering.
-2.. **Segmentation - ground truth generation**:
-   - Semi-automatic segmentation using thresholding and CCL.
-   - Using napari to manual correct the segmentaion from thresholding and CC.-This step is to make ground truth image.
-3. **Training Data preparation**:
-   - create the algorithums to transfer the segmentation labeled image into semantic image. 
-4. **Data Augmentation**:
-   -  Utilized libraries such as \colorbox{lightgray}{\texttt{kimimaro}} and \colorbox{lightgray}{\texttt{torchio}} to expand dataset diversity.
-5. **Model Trainning**:
-   - Trainning 3D-Unet model and VGG16-backboned 3D-Unet model. 
-6. **Model Estimation**:
-   - Compared model predictions with ground truth annotations.
-   - Achieved classification accuracy: **Background (0.99)**, **Axons (0.85)**, and **Borders (0.65)**.
+## **Environment Files**
+1. **`training_env.yml`**: Includes all packages and dependencies for training models, requiring a GPU (e.g., NVIDIA RTX 3060 Ti or equivalent).
+2. **`preprocessing_env.yml`**: Includes dependencies for preprocessing data and generating ground truth images. This environment is sufficient if you are not training models.
 
 ---
 
-## **Techniques and Tools**
+## **Setup Instructions**
 
-### **1. Image Preprocessing**
-- **Denoising Algorithms**:
-  1. **Initial Denoising**:
-     - **BM3D**: Applied advanced block-matching and collaborative filtering to reduce noise in 2D/3D images.
-  2. **Algorithm Choice Based on Image Characteristics**:
-     - For **axon-intensive images**:
-       - Used **Bilateral Filtering** to reduce Gaussian noise while preserving edge features, as **BM4D** tends to misinterpret dense axonal signals as noise and removes them entirely.
-     - For **less axon-intensive images**:
-       - Applied **BM4D** for volumetric data denoising.
-  3. **Background Removal**:
-     - Applied **Top-Hat Filtering** to extract foreground features and remove uneven background illumination.
+### **Step 1: Install Anaconda**
+Ensure you have Anaconda installed on your system. Download it from [Anaconda Official Website](https://www.anaconda.com/).
 
-     
-### **2. Segmentation - ground truth generation**
+### **Step 2: Clone the Repository**
+Clone this repository to your local machine:
+```bash
+git clone https://github.com/your-repo-link.git
+cd your-repo
+```
+### **Step 3: Create an Environment**
+Use the appropriate environment file based on your requirements:
 
-- **Initial Segmentation**:
-  - Used `cle.greater_or_equal_constant` for custom thresholding to create binary images.
-  - Extracted edge features with Sobel filters.
-  - Generated labeled regions with `skimage.measure.label`.
-- **Interactive Ground Truth Creation**:
-  - Developed a **custom Python tool** using `napari` and standard Python libraries like `os`, `tifffile`, and `tkinter` to streamline the creation of ground truth labeled images.
-  - The tool provides a user-friendly interface for loading, viewing, annotating, and saving labeled images.
-- **Key Features**:
-  1. **Shortcut-Driven Workflow**:
-     - `c`: Confirm and segment a specific region by applying a label mask.
-     - `s`: Save the current mask and move to the next image.
-     - `n`: Skip the current image without saving.
-     - `r`: Return to the previous image for corrections.
-     - `v`: Toggle between different viewing perspectives (e.g., y-z plane).
-  2. **Normalization**:
-     - Automatic normalization of image datasets to enhance contrast and ensure consistent brightness across slices.
-  3. **Dynamic Label Masking**:
-     - Enables segmentation of specific regions based on a selected label ID and visualizes sharpened or segmented results in real-time.
-  4. **File Management**:
-     - Integrated functions for loading existing datasets and saving progress, allowing users to resume their work seamlessly.
-  5. **Interactive Navigation**:
-     - Allows users to navigate large datasets and annotate images efficiently.
+- For GPU Training
+```bash
+conda env create -f training_env.yml
+conda activate training_env
+```
 
-- This tool significantly enhances the efficiency and accuracy of ground truth generation, making it easier to create high-quality labeled images for training deep learning models.
+- For Preprocessing and other usage
+```bash
+conda env create -f preprocessing_env.yml
+conda activate preprocessing_env
+```
+### **Step 4: Verify Installation**
+After activating the environment, verify the installation:
 
-
-### **3. Training Data Preparation**
-- Developed algorithms to convert segmentation-labeled images into semantic labels suitable for deep learning.
-
-### **4. Data Augmentation**
-- **Kimimaro**: Enhanced data diversity by skeletonizing neuronal structures.
-- **TorchIO**: Applied spatial, intensity, and random augmentations for 3D medical imaging datasets.
-
-### **5. Model Training & Estimation**
-- **3D-UNet**: Trained a 3D convolutional neural network for volumetric segmentation.
-- **VGG16-backboned 3D-UNet**: Incorporated VGG16 as a backbone for improved feature extraction and segmentation accuracy.
-- Compared model predictions with ground truth annotations using evaluation metrics such as:
-  - **Precision**, **Recall**, and **F1 Score**.
-  - Achieved segmentation accuracy:
-    - **Background**: 0.99
-    - **Axons**: 0.85
-    - **Borders**: 0.65
+```bash
+python --version
+conda list
+```
 
 ---
 
-## Installation
-### Prerequisites
-- Python 3.8+ (recommended Anaconda environment)
-- GPU for training (NVIDIA RTX 3060 Ti or similar)
+## **Troubleshooting**
+If you encounter issues during the setup (e.g., missing dependencies or GPU compatibility errors), please check the following:
 
-### Technical Requirements
-#### Equipment
-| **Equipment**           | **Description**            | **Manufacturer** |
-|--------------------------|----------------------------|------------------|
-| NVIDIA RTX 3060 Ti       | 8GB-GPU                   | ASUS            |
-| AMD Ryzen 9 5950X        | 128GB-16 core-CPU         | AMD             |
-| SP8                      | Confocal microscopy       | Leica           |
+### **1. Ensure your system meets the Global Settings requirements**
+- **Operating System**: Windows 10 Enterprise
+- **GPU**: CUDA V11.8 and CuDNN V9.0 installed
+- **Anaconda**: 2.6.0 or later installed
 
-#### Software & Packages
-##### Global Setting
-| **Software**            | **Version**     | **Purpose**                                    |
-|--------------------------|-----------------|-----------------------------------------------|
-| Windows                 | 10 Enterprise   | Computer system                               |
-| Anaconda                | 2.6.0           | Manage different environments for programming |
-| Microsoft Build Tools   | 2022-x86        | Associate with Microsoft Visual C++ download  |
-| Microsoft Visual C++    | 2022-x86        | Run some python packages that are written in C/C++ |
-| ImageJ                  | 1.54d           | Make the profile plot                         |
-| CUDA                    | V11.8           | Run GPU in training                           |
-| Cudnn                   | V9.0            | Associate with CUDA                           |
+### **2. Ensure you have installed the necessary Microsoft Build Tools and Visual C++**
+- Download and install the following:
+  - [Microsoft Build Tools 2022](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+  - [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
+
+### **3. For GPU issues**
+- Verify that your CUDA and CuDNN versions are compatible with your GPU and TensorFlow version.
 
 ---
 
-### Anaconda Environment
-#### Pre-processing and Machine Learning Settings
+## **Alternative Setup (Manual Installation)**
+If you cannot directly download the `training_env.yml` or `preprocessing_env.yml` files, you can manually install the necessary packages using the versions listed below:
+
+### **Anaconda Environment**
+#### **Pre-processing and Machine Learning Settings**
 | **Pre-processing Setting** | **Version** | **Machine Learning Setting**   | **Version** |
 |-----------------------------|-------------|--------------------------------|-------------|
 | python                      | 3.11.8      | python                         | 3.9.19      |
@@ -144,36 +89,45 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 | stackview                   | 0.7.4       |                                |             |
 | tifffile                    | 2023.2.28   |                                |             |
 
----
+### **Steps for Manual Installation**
+1. Create a new environment using Anaconda:
+   ```bash
+   conda create -n custom_env python=3.11.8
+   conda activate custom_env
+   ```
+2. Install the required packages individually:
 
-## Usage
-Follow the instructions provided in `instruction.ipynb` to preprocess the data and run the neural network pipeline.
-
----
-
-## **Data Source**
-
-This repository does not include raw microscopy datasets due to privacy and licensing restrictions. If you'd like to replicate the pipeline, you will need to obtain suitable microscopy images of axons. Please refer to the scripts for data format and preprocessing requirements.
-
----
-
-## Citation
-If you use this repository, please cite:
-> Ding Yang Wang, "Establishment of Neural Network Pipeline for Automated Identification of Mouse Spinal Cord Axons," Master’s Thesis, Ludwig-Maximilians-Universität München, 2024.
-
----
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+   ```bash
+   conda install jupyterlab=4.0.11 numpy=1.24.4 matplotlib=3.8.0 tqdm=4.66.2
+   pip install tensorflow==2.10.0 keras==2.10.0 segmentation_models_3D==1.0.0
+   pip install skimage==0.22.0 patchify==0.2.2 tifffile==2024.2.12
+   pip install bm3d==4.0.1 bm4d==4.2.3 napari==0.4.19.post1
+   ```
+3. Add any additional dependencies required for your specific tasks.
 
 ---
 
-## Contact
-For any questions or issues, please contact:  
+## **Note**
+- If you do not have access to a GPU or do not need to train models, it is recommended to use only the packages under the Pre-processing Settings column.
+- For GPU training, ensure that CUDA and CuDNN are correctly installed and compatible with TensorFlow.
+  
+---
+
+## **Global Settings**
+
+| **Software**            | **Version**     | **Purpose**                                    |
+|--------------------------|-----------------|-----------------------------------------------|
+| Windows                 | 10 Enterprise   | Computer system                               |
+| Anaconda                | 2.6.0           | Manage different environments for programming |
+| Microsoft Build Tools   | 2022-x86        | Associate with Microsoft Visual C++ download  |
+| Microsoft Visual C++    | 2022-x86        | Run some python packages that are written in C/C++ |
+| ImageJ                  | 1.54d           | Make the profile plot                         |
+| CUDA                    | V11.8           | Run GPU in training                           |
+| Cudnn                   | V9.0            | Associate with CUDA                           |
+
+---
+
+## **Contact**
+If further assistance is required, please contact:  
 **Ding Yang Wang**  
-Email: [deweywang2000@gmail.com](deweywang2000@gmail.com)
-
----
-## Supervisor
-**Prof. Dr. med. Martin Kerschensteiner**  
-Email: [Martin.Kerschensteiner@med.uni-muenchen.de](mailto:Martin.Kerschensteiner@med.uni-muenchen.de)
+Email: [deweywang2000@gmail.com](mailto:deweywang2000@gmail.com)
