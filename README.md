@@ -15,20 +15,18 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 ---
 
 ## **Workflow**
-1. **Data Acquisition**:
-   - Microscopy images of axons from EAE-induced mice expressing FRET calcium sensors.
-2. **Preprocessing**:
+1. **Preprocessing**:
    - Image denoising using BM3D, BM4D, and bilateral filtering.
-3. **Segmentation - ground truth generation**:
+2.. **Segmentation - ground truth generation**:
    - Semi-automatic segmentation using thresholding and CCL.
    - Using napari to manual correct the segmentaion from thresholding and CC.-This step is to make ground truth image.
-4. **Training Data preparation**:
+3. **Training Data preparation**:
    - create the algorithums to transfer the segmentation labeled image into semantic image. 
-5. **Data Augmentation**:
+4. **Data Augmentation**:
    -  Utilized libraries such as \colorbox{lightgray}{\texttt{kimimaro}} and \colorbox{lightgray}{\texttt{torchio}} to expand dataset diversity.
-6. **Model Trainning**:
+5. **Model Trainning**:
    - Trainning 3D-Unet model and VGG16-backboned 3D-Unet model. 
-7. **Model Estimation**:
+6. **Model Estimation**:
    - Compared model predictions with ground truth annotations.
    - Achieved classification accuracy: **Background (0.99)**, **Axons (0.85)**, and **Borders (0.65)**.
 
@@ -36,10 +34,7 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 
 ## **Techniques and Tools**
 
-### **1. Data Acquisition**
-- **Microscopy Imaging**: Captured confocal microscopy images of axons using **SP8 Confocal Microscopy (Leica)**.
-
-### **2. Image Preprocessing**
+### **1. Image Preprocessing**
 - **Denoising Algorithms**:
   1. **Initial Denoising**:
      - **BM3D**: Applied advanced block-matching and collaborative filtering to reduce noise in 2D/3D images.
@@ -51,13 +46,13 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
   3. **Background Removal**:
      - Applied **Top-Hat Filtering** to extract foreground features and remove uneven background illumination.
 
+     
+### **2. Segmentation - ground truth generation**
+
 - **Initial Segmentation**:
   - Used `cle.greater_or_equal_constant` for custom thresholding to create binary images.
   - Extracted edge features with Sobel filters.
   - Generated labeled regions with `skimage.measure.label`.
-
-     
-### **3. Ground Truth Generation**
 - **Interactive Ground Truth Creation**:
   - Developed a **custom Python tool** using `napari` and standard Python libraries like `os`, `tifffile`, and `tkinter` to streamline the creation of ground truth labeled images.
   - The tool provides a user-friendly interface for loading, viewing, annotating, and saving labeled images.
@@ -80,18 +75,16 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 - This tool significantly enhances the efficiency and accuracy of ground truth generation, making it easier to create high-quality labeled images for training deep learning models.
 
 
-### **4. Training Data Preparation**
+### **3. Training Data Preparation**
 - Developed algorithms to convert segmentation-labeled images into semantic labels suitable for deep learning.
 
-### **5. Data Augmentation**
+### **4. Data Augmentation**
 - **Kimimaro**: Enhanced data diversity by skeletonizing neuronal structures.
 - **TorchIO**: Applied spatial, intensity, and random augmentations for 3D medical imaging datasets.
 
-### **6. Model Training**
+### **5. Model Training & Estimation**
 - **3D-UNet**: Trained a 3D convolutional neural network for volumetric segmentation.
 - **VGG16-backboned 3D-UNet**: Incorporated VGG16 as a backbone for improved feature extraction and segmentation accuracy.
-
-### **7. Model Estimation**
 - Compared model predictions with ground truth annotations using evaluation metrics such as:
   - **Precision**, **Recall**, and **F1 Score**.
   - Achieved segmentation accuracy:
@@ -154,16 +147,13 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 ---
 
 ## Usage
-Follow the instructions provided in `instruction.ipynb` to set up, preprocess the data, and run the neural network pipeline. The guide includes:
-- Environment setup
-- Data preparation
-- Model training
-- Evaluation and result generation
+Follow the instructions provided in `instruction.ipynb` to preprocess the data and run the neural network pipeline.
 
 ---
 
-## Results
-The pipeline achieves state-of-the-art performance in axonal identification with metrics as detailed in the thesis. All results are reproducible using the provided scripts.
+## **Data Source**
+
+This repository does not include raw microscopy datasets due to privacy and licensing restrictions. If you'd like to replicate the pipeline, you will need to obtain suitable microscopy images of axons. Please refer to the scripts for data format and preprocessing requirements.
 
 ---
 
