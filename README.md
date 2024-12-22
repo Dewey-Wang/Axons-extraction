@@ -17,9 +17,9 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 ## **Workflow**
 1. **Preprocessing**:
    - Image denoising using BM3D, BM4D, and bilateral filtering.
-2.. **Segmentation - ground truth generation**:
+2. **Segmentation - ground truth generation**:
    - Semi-automatic segmentation using thresholding and CCL.
-   - Using napari to manual correct the segmentaion from thresholding and CC.-This step is to make ground truth image.
+   - Using napari to manual correct the segmentaion from thresholding and CCL.-This step is to make ground truth image.
 3. **Training Data preparation**:
    - create the algorithums to transfer the segmentation labeled image into semantic image. 
 4. **Data Augmentation**:
@@ -29,6 +29,11 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 6. **Model Estimation**:
    - Compared model predictions with ground truth annotations.
    - Achieved classification accuracy: **Background (0.99)**, **Axons (0.85)**, and **Borders (0.65)**.
+   
+---
+
+## Usage
+The general instructions provided in `instruction.ipynb`. Detailed usage instructions are available in the respective subdirectories. 
 
 ---
 
@@ -51,11 +56,6 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 | NVIDIA RTX 3060 Ti       | 8GB-GPU                   | ASUS            |
 | AMD Ryzen 9 5950X        | 128GB-16 core-CPU         | AMD             |
 | SP8                      | Confocal microscopy       | Leica           |
-
----
-
-## Usage
-The general instructions provided in `instruction.ipynb`. Detailed usage instructions are available in the respective subdirectories. 
 
 ---
 
