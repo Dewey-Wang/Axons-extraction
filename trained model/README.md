@@ -65,7 +65,7 @@ vgg16_predictions = vgg16_model.predict(input_data)
 ## **Additional Details**
 
 ### **Training Information**
-- Training details, including optimizer, loss functions, metrics, and callbacks, are available in the `5. model training & estimation` folder.
+- Training details, including optimizer, loss functions, metrics, and callbacks, are available in the [5. model training & estimation](../script/5.%20model%20trainning%20&%20estimation) folder.
 
 ### **Performance**
 - A detailed performance evaluation is also provided in the `5. model training & estimation` folder.
