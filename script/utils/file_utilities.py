@@ -35,4 +35,4 @@ def choose_file_dialog(filetype):
     return file_path
 
 def choose_file():
-    return choose_file_dialog([("All files", "*.*"), ("TIF files", "*.tif/.tiff"), ("LIF files", "*.lif")])
+    return choose_file_dialog([("All files", "*.*"), ("TIF files", "*.tif *.tiff"), ("LIF files", "*.lif")])
