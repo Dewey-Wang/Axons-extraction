@@ -1,6 +1,6 @@
 # **Image Augmentation**
 
-This script provides a comprehensive pipeline for applying data augmentation techniques to medical imaging datasets, particularly in `.tif` or `.tiff` formats. The script integrates functions for loading data, applying transformations, saving augmented images and masks, and visualizing the results using Napari.
+This notebook provides a comprehensive pipeline for applying data augmentation techniques to medical imaging datasets, particularly in `.tif` or `.tiff` formats. The script integrates functions for loading data, applying transformations, saving augmented images and masks, and visualizing the results using Napari.
 
 ---
 
