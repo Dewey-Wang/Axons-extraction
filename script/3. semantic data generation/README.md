@@ -1,4 +1,4 @@
-# **Generate Border**
+# **semantic data generation**
 
 This notebook provides three different methods to generate semantic label images for training 3D-Unet models. These semantic images include three classes:
 - **0 (Background)**: Regions with no axons or borders.
