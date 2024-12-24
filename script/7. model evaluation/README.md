@@ -91,7 +91,7 @@ This directory contains the notebook for evaluating the performance of trained d
 
 ## **How to Use**
 1. **Pretrained Model**:
-   - Place the best-performing model file (`best_model.h5`) in the current directory.
+   - Place the best-performing model file (`best_model.h5`) in the `6. model trainning` directory.
 2. **Test Dataset**:
    - Ensure `X_test.npy` and `y_test.npy` are available.
 3. **Run the Notebook**:
