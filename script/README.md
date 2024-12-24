@@ -22,15 +22,7 @@ This directory contains all the Jupyter Notebooks and Python scripts required fo
 - Notebooks for training models (e.g., 3D-Unet, VGG16-backboned 3D-Unet) and evaluating their performance.
 
 ### **Utils**
-A collection of Python scripts providing shared functionality for the pipeline:
-
-| **File Name**             | **Description**                                                    |
-|----------------------------|--------------------------------------------------------------------|
-| `LifFileProcessor.py`      | Functions for processing `.lif` microscopy files, including image integration and masking. |
-| `capture_partial_image.py` | Tool for interactively selecting and cropping regions of interest from images. |
-| `file_utilities.py`        | General file-handling utilities, such as file selection dialogs and directory management. |
-| `QuestionMaster.py`        | Utility for interacting with users, including question prompts and input validation. |
-| `BM4DProcessor.py`         | Specific implementation for BM4D denoising in the pipeline.      |
+A collection of Python scripts providing shared functionality for the pipeline.
 
 ---
 
