@@ -32,11 +32,6 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
    
 ---
 
-## Usage
-The general instructions provided in `instruction.ipynb`. Detailed usage instructions are available in the respective subdirectories. 
-
----
-
 ## **Repository Structure**
 
 | **Directory**          | **Description**                           |
