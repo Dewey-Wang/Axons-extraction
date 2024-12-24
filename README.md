@@ -15,20 +15,44 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 ---
 
 ## **Workflow**
+
 1. **Preprocessing**:
-   - Image denoising using BM3D, BM4D, and bilateral filtering.
-2. **Segmentation - ground truth generation**:
-   - Semi-automatic segmentation using thresholding and CCL.
-   - Using napari to manual correct the segmentaion from thresholding and CCL.-This step is to make ground truth image.
-3. **Training Data preparation**:
-   - create the algorithums to transfer the segmentation labeled image into semantic image. 
+   - **Key Packages**: `BM3D`, `BM4D`, `pyclesperanto_prototype`, `skimage`.
+   - **Custom Python Scripts**: `image_processor.py`, `image_cropper.py`, `BM4DProcessor`. (See [README](./script/utils/README.md) for detail.)
+   <img src="./for%20readme%20image/preprocessing1.png" alt="Preprocessing Representation" width="300"/>  
+   <img src="./for%20readme%20image/signal%201.png" alt="Signal 1" width="240"/>
+
+   <img src="./for%20readme%20image/preprocessing2.png" alt="Preprocessing Representation" width="300"/>  
+   <img src="./for%20readme%20image/signal%202.png" alt="Signal 2" width="240"/>
+
+   ![After Preprocessing](./for%20readme%20image/after%20preprocessing.gif)
+
+2. **Manual Labeled Image Correction**:
+   - **Key Packages**: `napari`, `scipy.ndimage`, `pyclesperanto_prototype`.
+   - **Custom Python Scripts**: `napari_editor.py`, `manual_correction_data_loader.py`. (See [README](./script/utils/README.md) for detail.)
+   ![After Manual Correction](./for%20readme%20image/after%20manual%20correction.gif)
+
+3. **Semantic Data Generation**:
+   - **Key Packages**: `numpy`, `skimage`.
+   - **Custom Python Algorithms**: See [notebook](./script/3.%20semantic%20data%20generation/) for detail.
+   ![After Semantic Generation](./for%20readme%20image/after%20semantic%20generation.gif)
+
 4. **Data Augmentation**:
-   -  Utilized `torchio` libraries to expand dataset diversity.
-5. **Model Trainning**:
-   - Trainning 3D-Unet model and VGG16-backboned 3D-Unet model. 
-6. **Model Estimation**:
-   - Compared model predictions with ground truth annotations.
-   - Achieved classification accuracy: **Background (0.99)**, **Axons (0.85)**, and **Borders (0.65)**.
+   - **Key Packages**: `torchio`, `patchify`.
+   - **Custom Python Algorithms**  See [notebook](./script/4.%20data%20augmentation/) for detail.
+
+5. **Training Data Preparation**:
+   - **Key Packages**: `patchify`, `scipy.ndimage`.
+   - **Custom Python Algorithms**  See [notebook](./script/5.%20trainning%20data%20preparation/) for detail.
+
+6. **Model Training**:
+   - **Key Packages**: `tensorflow`, `segmentation_models_3D`, `keras`.
+
+7. **Model Evaluation**:
+   - **Key Packages**: `sklearn`, `matplotlib`, `tensorflow`.
+
+8. **Run the Model**:
+   - **Key Packages**: `tensorflow`, `patchify`, `tifffile`.
    
 ---
 
@@ -41,6 +65,10 @@ Multiple sclerosis (MS) causes axonal loss, a key driver of patient disability. 
 | `/trained model`        | The pre-trained model with the settings. |
 | `/env`                  | Have the detail of my env settings.      |
 
+---
+
+### **Note**
+Each directory corresponding to these workflow stages includes a detailed README file explaining the specific methods, scripts, and outputs. If you are interested in learning more, explore the README files within each folder.
 
 ---
 
