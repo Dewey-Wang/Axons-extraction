@@ -7,22 +7,31 @@ This directory contains all the Jupyter Notebooks and Python scripts required fo
 ## **Subdirectory Descriptions**
 
 ### **1. Preprocessing**
-- Jupyter Notebooks for raw data preprocessing, including denoising and filtering.
+- Notebook for raw data preprocessing, including denoising, filtering, and preparing data for downstream analysis.
 
 ### **2. Manual Labeled Image Correction**
-- Notebooks for manually correcting labeled images, leveraging tools like Napari.
+- Tools and scripts for manually correcting labeled images using interactive tools like Napari.
 
-### **3. Training Data Preparation**
-- Notebooks to prepare data for model training, such as generating semantic labels from ground truth.
+### **3. Semantic Data Generation**
+- Notebook for generating semantic labels from ground truth data for model training.
 
 ### **4. Data Augmentation**
-- Notebooks for applying data augmentation techniques to enhance dataset diversity.
+- Notebook for applying augmentation techniques to increase dataset diversity and robustness.
 
-### **5. Model Training & Estimation**
-- Notebooks for training models (e.g., 3D-Unet, VGG16-backboned 3D-Unet) and evaluating their performance.
+### **5. Training Data Preparation**
+- Notebook for validating, resizing, and patching datasets for model training.
+
+### **6. Model Training**
+- Notebooks for training models like 3D-Unet and SM-Unet with detailed hyperparameter configurations.
+
+### **7. Model Evaluation**
+- Notebook for evaluating model performance, including metrics like IOU and generating confusion matrices.
+
+### **8. Run the Model**
+- Notebooks for performing inference using trained models and analyzing predictions.
 
 ### **Utils**
-A collection of Python scripts providing shared functionality for the pipeline.
+- A collection of modular Python scripts providing shared functionality across the pipeline, such as file handling, patching, and preprocessing utilities.
 
 ---
 
