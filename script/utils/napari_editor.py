@@ -2,7 +2,8 @@ import napari
 import numpy as np
 import os
 import tifffile as tiff
-from tkinter import filedialog, Tk
+from tkinter import filedialog, Tk, messagebox
+
 
 class ImageEditor:
     def __init__(self, image_dataset, sharpened_img_dataset, mask_dataset):
@@ -36,13 +37,20 @@ class ImageEditor:
         root = Tk()
         root.attributes("-topmost", True)
         root.withdraw()
+    
+        # 彈窗提醒
+        messagebox.showinfo("Choose Directory", "Please choose a folder to save your manual correction files.")
+    
+        # 開啟目錄選擇對話框
         directory_path = filedialog.askdirectory(
             title="Select a directory to save your files"
         )
         root.destroy()
+    
         if not directory_path:
             raise Exception("No directory selected. Operation aborted.")
         return directory_path
+
 
     def start(self):
         # Ask the user to enter the starting index

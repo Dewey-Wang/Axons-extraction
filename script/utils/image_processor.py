@@ -16,8 +16,10 @@ def process_image():
         return process_lif_file(file_path)
     elif file_path.endswith('.tif'):
         return process_tiff_file(file_path)
+    elif file_path.endswith('.tiff'):
+        return process_tiff_file(file_path)
     else:
-        raise ValueError("Unsupported file format. Please provide a .tif or .lif file.")
+        raise ValueError("Unsupported file format. Please provide a .tif/.tiff or .lif file.")
 
 def process_lif_file(file_path):
     # Create an instance of LifImageProcessor
