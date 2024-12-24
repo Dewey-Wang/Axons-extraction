@@ -1,4 +1,4 @@
-# **Run the Model README**
+# **Run the Model**
 
 This directory contains two notebooks designed to perform model inference and analyze the prediction results for 3D segmentation tasks:
 
